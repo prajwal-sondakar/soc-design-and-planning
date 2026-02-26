@@ -270,3 +270,16 @@ Final Netlist + Reports Generated
 ```
 
 The synthesis stage transforms the abstract RTL description into a technology-mapped hardware representation by optimizing logic and applying Sky130 standard cell constraints.
+
+
+---
+
+## Requirec Calculation for day-1:
+
+Flop ratio = Number of D flip Flops / Total Number of cells 
+#### % of DFF’s = Flop ratio * 100 
+Flop ratio = 1613 / 14876 
+#### % of DFF’s = 0.108429685 * 100 = 10.84296854 % 
+---
+
+
