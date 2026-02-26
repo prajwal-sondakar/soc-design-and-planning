@@ -261,3 +261,26 @@ Final Placement DEF + Reports
 ```
 
 The placement stage converts the floorplan framework into an organized physical layout by assigning optimized positions to standard cells while maintaining density balance and design rule compliance.
+
+---
+### Required Calculation for day-3:
+---
+#### Rise transition time calculation 
+#### Rise time = Time taken for the output to rise to 80% - Time taken for the output to rise to 20%
+- 80% = 2.64mV
+- 20% = 660mV
+- Rise transition time = 2.246 - 2.182 = 0.064 ns = 64 ps
+
+#### Fall transition time = Time taken for the output to fall to 20% - Time taken for the output to fall to 80 %
+- 20%=660mV
+- 80%=2.64mV
+- Fall transition time = 4.0955 - 4.0536 = 0.0419 ns = 41.9 ps
+
+#### Rise cell delay= Time taken for the output to rise to 50% - Time taken for the input to rise to 50 %
+- 50% of 3.3V = 1.65V
+- Rise cell delay= 2.21144 - 2.15008 = 0.06136ns = 61.36 ps
+
+#### Fall cell delay= Time taken for the output to fall to 50% - Time taken for the input to fall to 50%
+- 50% of 3.3V = 1.65V
+- Fall cell delay= 4.07 - 4.05 = 0.02ns = 20 ps
+---
