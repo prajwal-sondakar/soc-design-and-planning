@@ -53,18 +53,24 @@ Each tool contributes to a specific stage of the ASIC workflow, from logic mappi
 
 ```
 Verilog RTL
-      |
-Synthesis (Yosys + ABC)
-      |
+|
+Functional Verification
+|
+Logic Synthesis (Yosys + ABC)
+|
 Floorplanning & Power Planning
-      |
+|
 Placement
-      |
-Clock Tree Synthesis
-      |
+|
+Clock Tree Synthesis (CTS)
+|
 Routing
-      |
-GDSII Layout Generation
+|
+Static Timing Analysis (OpenSTA)
+|
+Physical Verification (DRC / LVS)
+|
+GDSII Layout Generation to Tapeout-Ready Design
 ```
 
 This progression demonstrates how a behavioral hardware description evolves into a complete physical chip structure.
