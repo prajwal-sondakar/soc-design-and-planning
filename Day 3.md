@@ -163,7 +163,9 @@ Standard cells now have physical coordinates.
 ### 6. Opening Layout Using Magic (Visual Verification)
 
 ```bash
-magic -T sky130A.tech lef read merged.lef def read <placement.def> &
+magic -T $PDK_ROOT/sky130A/libs.tech/magic/sky130A.tech \
+lef read merged_unpadded.lef \
+def read picorv32a.placement.def
 ```
 
 Result:
@@ -171,6 +173,7 @@ Result:
 - Standard cells visible inside rows  
 - Core boundary displayed  
 - Power rails aligned  
+### : Opening Coustom Inverter
 
 ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-46-59.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-35.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-52.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-10.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-28.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-38.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-55-34.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-37-08.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-40-47.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-48-44.png>)
 ---
@@ -178,7 +181,7 @@ Result:
 ### 7. Viewing Placement DEF File Using Vim
 
 ```bash
-vim runs/picorv32a/results/placement/<placement.def>
+/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/placement$ gedit picorv32a.placement.def
 ```
 
 Exit:
@@ -193,7 +196,7 @@ ESC
 ### 8. Checking Placement Reports
 
 ```bash
-less runs/picorv32a/reports/placement/*.rpt
+gedit runs/picorv32a/reports/placement/6-replace.rpt
 ```
 ![placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-37.png>) ![placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-42.png>)
 Observed:
@@ -210,17 +213,13 @@ Observed:
 ### 10. Inspecting Placement Logs
 
 ```bash
-less runs/picorv32a/logs/placement/*.log
+cd runs/22-02_13-44/logs/placement$
+  gedit 6-replace.log
 ```
 
 ---
 
-### 11. Opening Library LEF File
-
-```bash
-vim merged.lef
-```
-## 12. opening the pre-designed cells and correcting the error 
+## 11. opening the pre-designed cells and correcting the error 
 
 ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-24.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-36.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-41-52.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-46-27.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-57.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-05-38.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-08-43.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-57-15.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-58-34.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-04.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-56.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-14-17.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-26-01.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-30-11.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-31-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-43-30.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-52-23.png>)
 ---

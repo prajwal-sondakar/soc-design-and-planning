@@ -68,20 +68,13 @@ The workflow also introduces the idea of evaluating floorplan quality by compari
 
 ## PART 3 — COMMANDS USED + OUTPUT RESULTS
 
-### 1. Cloning the Repository and Entering the Project Directory
+### 1.  Entering the Project Directory
 
 ```bash
-git clone <repository_link>
-cd <repository_folder>
+/Desktop/work/tools/openlane_working_dir/openlane
 ```
 
-**Purpose**
 
-* Download RTL sources, configuration files, and OpenLANE setup.
-
-**Result Generated**
-
-* Local project directory created with design files.
 
 ---
 
@@ -168,15 +161,11 @@ run_synthesis
 ### 6. Opening Synthesized Netlist Using Vim
 
 ```bash
-vim runs/picorv32a/results/synthesis/*.v
-```
-
-Example cells observed:
+/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/synthesis$ gvim picorv32a.synthesis.v
 
 ```
-sky130_fd_sc_hd__dfxtp
-sky130_fd_sc_hd__nand2
-```
+
+
 
 Exit Vim:
 
@@ -190,7 +179,7 @@ ESC
 ### 7. Viewing Synthesis Reports
 
 ```bash
-less runs/picorv32a/reports/synthesis/*.rpt
+/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/reports/synthesis$ gvim 1-yosys_3.chk.rpt
 ```
 
 Observed:
@@ -203,33 +192,19 @@ Observed:
 
 ### 8. Checking Cell Statistics (Flop Ratio Observation)
 
-```bash
-less runs/picorv32a/reports/synthesis/*stat.rpt
-```
+
 ![total numbers of cells](image-2.png)
 ![total numbers of D-ff](image-3.png)
 
 ### 9. Inspecting Synthesis Logs
 
 ```bash
-less runs/picorv32a/logs/synthesis/*.log
+/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/logs/synthesis$ less 1-yosys.log
 ```
 
 ---
 
-### 10. Opening Library LEF File
 
-```bash
-vim merged.lef
-```
-
----
-
-### 11. Opening DEF/Design View in Magic
-
-```bash
-magic -T sky130A.tech lef read merged.lef &
-```
 
 ---
 
