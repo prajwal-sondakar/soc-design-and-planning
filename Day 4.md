@@ -98,23 +98,81 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![ magic  ](<images/day4.md/Screenshot from 2026-02-19 22-36-36.png>)
 
 ![magic](<images/day4.md/Screenshot from 2026-02-19 22-37-40.png>)
-
+```bash
+# lef write
+lef write
+```
  ![alt text](<images/day4.md/Screenshot from 2026-02-19 22-50-38.png>)
- 
+ ##### screenshot of newly created lef file
   ![alt text](<images/day4.md/Screenshot from 2026-02-19 22-57-05.png>) 
-  
+  ```bash
+# copy lef file
+cp sky130_vsdinv.lef ~/Desktop/worl/tools/openlane_working_dir/openlane/design/picorv32a/src/
+# List and check whether its copied
+ls ~/Desktop/worl/tools/openlane_working_dir/openlane/design/picorv32a/src/
+# Copy lib files
+cp libs/sky130_fd_sc_hd__* ~/Desktop/worl/tools/openlane_working_dir/openlane/design/picorv32a/src/
+# Check
+ls /Desktop/worl/tools/openlane_working_dir/openlane/design/picorv32a/src/
+  ```
   ![alt text](<images/day4.md/Screenshot from 2026-02-19 23-08-02.png>)
-  
+#### edit "config.tcl" to change lib file and add the new extra lef into the openlane flow.
+
+##### Commands to be added to config.tcl to include our custom  cell in the openlane flow
+```bash
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/design/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/design/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/design/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/design/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+```
+##### Edited config.tcl 
 ![alt text](<images/day4.md/Screenshot from 2026-02-19 23-42-23.png>) 
 
 ![magic](<images/day4.md/Screenshot from 2026-02-20 00-02-18.png>) 
+```bash
+# Entered in the project 
+cd /Desktop/work/tools/openlane_working_dir/openlane
+Docker
+# Openalne in interactive mode
+./flow.tcl -interactive
+# input all the require packages for the design
+package require openlane 0.9
+# Now our design is ready for synthesis
+prep -design picorv32a
+# Additional commands to include newly added lef 
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+# Now design is ready ,so run the synthesis using the following command
+run_synthesis
+```
 
 ![alt text](<images/day4.md/Screenshot from 2026-02-20 17-15-46.png>)
 
 ![alt text](<images/day4.md/Screenshot from 2026-02-20 17-29-21.png>) 
 
 ![alt text](<images/day4.md/Screenshot from 2026-02-20 17-29-43.png>) 
+```bash
+prep -design picorv32a -tag 22-02_13-44 -overwrite
 
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+
+echo $::env(SYNTH_STRATEGY)
+
+set $::env(SYNTH_STRATEGY)
+
+echo $::env(SYNTH_BUFFERING)
+
+echo $::env(SYNTH_SIZING)
+
+set $::env(SYNTH_SIZING) 1
+
+echo $::env(SYNTH_DRIVING_CELL)
+
+run_synthesis
+```
 ![alt text](<images/day4.md/Screenshot from 2026-02-20 17-33-51.png>)
    
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 17-52-09.png>) 
@@ -128,9 +186,17 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 17-54-45.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 17-55-33.png>) 
- 
+ ```bash
+# Now we can run floorplan
+run_floorplan
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 18-18-13.png>) 
- 
+ ##### If we face error while using run_floorplan then use these following commands 
+ ```bash
+init_floorplan
+place_io
+tap_decap_or
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 18-18-27.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 18-19-28.png>) 
@@ -140,23 +206,39 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 18-20-54.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 18-21-28.png>) 
- 
+ #### Change directory to path containing placement def 
+ ```bash
+cd /Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/placement/
+# command in the magic tool
+magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 18-44-27.png>) 
  
+
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 19-28-39.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 19-30-11.png>) 
- 
+ ```bash
+ # command to view internal connectivity layers
+ expand
+ ```
+
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 19-30-42.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 19-45-45.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-20 19-46-37.png>) 
  
+ #### Newly created "my_base.sdc"
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 18-20-03.png>) 
- 
+ #### Newly created pre_sta.conf
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 18-21-14.png>) 
- 
+ ```bash
+# change directory to openlane 
+cd Desktop/work/tools/openlane_working_dir/openlane
+# invoke openSTA tool with script
+sta pre_sta.conf
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 19-40-11.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 19-40-40.png>) 
@@ -166,7 +248,7 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 19-41-30.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 19-41-41.png>) 
- 
+
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 20-36-06.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 21-09-33.png>) 
@@ -180,13 +262,23 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 22-52-02.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 22-53-05.png>) 
- 
+  ```bash
+# Report_net -connection to a net
+report_net -connections _11672_
+# Checking command syntax
+help replace_cell
+# Replace cell
+replace_cell _14510_ sky130_fd_sc_hd__or3_4
+# Genrating custom timinf report
+report_checks -fields {net cap slew input_pins} -digits 4
+
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 22-53-19.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 22-53-25.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 22-53-31.png>) 
- 
+
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-09-36.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-09-48.png>) 
@@ -196,7 +288,17 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-10-51.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-12-00.png>) 
- 
+  ```bash
+# Report_net -connection to a net
+report_net -connections _11675_
+# Checking command syntax
+help replace_cell
+# Replace cell
+replace_cell _14514_ sky130_fd_sc_hd__or3_4
+# Genrating custom timinf report
+report_checks -fields {net cap slew input_pins} -digits 4
+
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-18-42.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-19-37.png>) 
@@ -208,13 +310,33 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-38-46.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-39-34.png>) 
- 
+  ```bash
+# Report_net -connection to a net
+report_net -connections _11643_
+# Checking command syntax
+help replace_cell
+# Replace cell
+replace_cell _14481_ sky130_fd_sc_hd__or4_4
+# Genrating custom timinf report
+report_checks -fields {net cap slew input_pins} -digits 4
+
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-55-47.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-56-03.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-21 23-58-48.png>) 
- 
+  ```bash
+# change directory to synthesis results directory
+cd Desktop/work/tools/openlane_working_dir/openlane/design/picorv32a/22-02_13-44/synthesis/
+# list contents of the current directory
+ls
+# copy and rename the netlist
+cp picorv32a.synthesis.v picorv32a.synthesis_old.v
+#list
+ls
+
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-22 00-18-22.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-22 00-40-43.png>) 
@@ -224,7 +346,27 @@ grid 0.46um 0.34um 0.23um 0.17um
  ![alt text](<images/day4.md/Screenshot from 2026-02-22 00-44-08.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-22 00-44-46.png>) 
- 
+ ```bash
+prep -design picorv32a -tag 22-02_13-44 -overwrite
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef] add_lefs -src &lefs
+
+set ::env(SYNTH_STRATEGY) 
+
+set ::env(SYNTH_SIZING) 1
+
+run_synthesis
+
+init_floorplan
+place_io
+tap_decap_or
+
+run_placement
+
+unset ::env(LIB_CTS)
+
+run_cts
+ ```
  ![alt text](<images/day4.md/Screenshot from 2026-02-22 12-01-01.png>) 
  
  ![alt text](<images/day4.md/Screenshot from 2026-02-22 12-22-13.png>) 
@@ -256,7 +398,32 @@ grid 0.46um 0.34um 0.23um 0.17um
 ![alt text](<images/day4.md/Screenshot from 2026-02-22 13-53-48.png>)
   
 ![alt text](<images/day4.md/Screenshot from 2026-02-22 13-53-51.png>)
-   
+```bash
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST)0 0]
+
+echo $::env(CURRENT_DEF)
+
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/22-02_13-44/results/plaement/picorv32a.placement.def
+
+run_ctc
+
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+openroad
+
+read_lef /openLANE_flow/designs/picorv32a/runs/22-02_13-44/tmp/merged.lef
+
+read_def /openLANE_flow/designs/picorv32a/runs/22-02_13-44/results/cts/picorv32a.cts.def
+
+write_db pico_cts1.db
+
+read_db pico_cts.db
+
+read_verilog /openLANE_flow/designs/picorv32a/runs/22-02_13-44/results/synthesis/picorv32a.synthesis_cts.v
+
+```
 ![alt text](<images/day4.md/Screenshot from 2026-02-22 14-10-11.png>)
     
 ![alt text](<images/day4.md/Screenshot from 2026-02-22 14-12-53.png>)

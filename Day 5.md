@@ -105,77 +105,134 @@ Purpose:
 
 ---
 
-### 3. Running Routing
-
 ```bash
-run_routing
+# To include newly added lef to openlane flow merged.lefs
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef] add_lefs -src &lefs
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) 
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_SIZING) 1
+# After design is ready now we can run synthesis
+run_synthesis
+# optional use this or run_floorplan
+init_floorplan
+place_io
+tap_decap_or
+# Now we are ready for the placement
+run_placement
+# optional incase getting error
+unset ::env(LIB_CTS)
+# After placement now we are ready for the CTS
+run_cts
+# After the CTS is done now we can do power distribution network
+gen_pdn
+
 ```
-
-Purpose:
-
-- Perform global routing estimation
-- Execute detailed routing
-
-Outputs Generated:
-
-- Routed DEF file with metal connections
-- Routing reports
-- Routing logs
 
 ![run synthesis](image-9.png)
 ---
 
-### 4. Viewing placement Reports
+### screenshots of PDN
 
-![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-27-10.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-28-25.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-30-12.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-30-29.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-35-47.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-36-07.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-37-03.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-37-09.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-38-17.png>) 
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-27-10.png>) 
+
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-28-25.png>) 
+
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-30-12.png>) 
+
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-30-29.png>) 
+```bash
+# Change directory to path of generated PDN def
+cd /Desktop/worl/tools/openlane_working_dir/openlane
+# Command to load the pdn def in magic tool
+magic -T /Desktop/worl/tools/openlane_working_dir/openlane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
+```
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-35-47.png>) 
+
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-36-07.png>) 
+
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-37-03.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-37-09.png>) 
+
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-38-17.png>) 
 ---
-### 4. Viewing Routing Reports
+### Prefrom detailed routing using TritonRoute and explore routed layout
 
 ```bash
-less runs/picorv32a/reports/routing/*.rpt
+# Check value of current def
+echo $::env(CURRENT_DEF)
+# Check value of Routing_strategy
+echo $::env(ROUTING_STRATEGY)
+# route using Triton Route
+run_routing
+
 ```
 
-Observed:
 
-- Routing completion status
-- Metal layer usage
-- Congestion information
-
-![routing completed](image-10.png)
 ---
 
-### 5. Inspecting Routing Logs
 
-```bash
-less runs/picorv32a/logs/routing/*.log
-```
 ![Inspecting Routing Logs](<images/day5.md/Screenshot from 2026-02-22 20-46-55.png>) ![Inspecting Routing Logs](<images/day5.md/Screenshot from 2026-02-22 20-47-26.png>) ![Inspecting Routing Logs](<images/day5.md/Screenshot from 2026-02-22 20-50-26.png>)
 ---
 
-### 6. Opening Routed Layout in Magic
+##### command to load routed def in magic 
 
 ```bash
-magic -T sky130A.tech lef read merged.lef def read <routed.def> &
+# Change directory to path of generated PDN def
+cd /Desktop/worl/tools/openlane_working_dir/openlane
+# Command to load the pdn def in magic tool
+magic -T /Desktop/worl/tools/openlane_working_dir/openlane/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
 ```
-
-Result:
-
-- Layout shows metal wires connecting placed cells.
+---
 
 ![magic output](<images/day5.md/Screenshot from 2026-02-22 20-54-21.png>) ![magic output](<images/day5.md/Screenshot from 2026-02-22 20-54-40.png>) ![magic output](<images/day5.md/Screenshot from 2026-02-22 20-55-06.png>) ![magic output](<images/day5.md/Screenshot from 2026-02-22 20-55-21.png>)
 ---
 
-### 7. Checking Design Rule Violations
+###  Checking Design Rule Violations
 
 ```bash
-less runs/picorv32a/reports/signoff/*.rpt
+# Change directory
+cd Desktop/worl/tools/SPEF_EXTRACTOR
+
+# Command extract spef
+python main.py /Desktop/work/tools/openlane_working_dir/desings/picorv32a/runs/22-02_13-44/tmp/merged.lef /Desktop/work/tools/openlane_working_dir/desings/picorv32a/runs/22-02_13-44/results/routing/picorv32a.def
 ```
 
 Purpose:
 
 - Review DRC or verification results before final export.
 
-![final results](<images/day5.md/Screenshot from 2026-02-22 20-57-23.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 20-58-54.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-27-51.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-39-52.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-36.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-51.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-56.png>)
+![final results](<images/day5.md/Screenshot from 2026-02-22 20-57-23.png>)
+
+ ![final results](<images/day5.md/Screenshot from 2026-02-22 20-58-54.png>) 
+ 
+ ## Post route openSTA timming analysis
+ 
+ ```bash
+openroad
+
+read_lef /openLANE_flow/designs/picorv32a/runs/22-02_13-44
+
+read_def /openLANE_flow/designs/picorv32a/runs/22-02_13-44/results/routing/picorv32a.def
+
+write_db pico_route.db
+
+read_verilog /openLANE_flow/designs/picorv32a/runs/22-02_13-44/results/synthesis/picorv32a.synthesis_preroute.v
+
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+link_design picorv32a
+
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+set_propagated_clock [all_clock]
+
+read_spef /openLANE_flow/designs/picorv32a/runs/22-02_13-44/results/routing/picorv32a.spef
+
+reportt_check -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+exit
+ ```
+ ![final results](<images/day5.md/Screenshot from 2026-02-22 22-27-51.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-39-52.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-36.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-51.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-56.png>)
 ---
 
 ### 8. Generating Final GDS Layout
