@@ -138,7 +138,7 @@ runs/picorv32a/
  ├── results/
  └── tmp/
 ```
-
+![Preparing the picorv32a Design](<images/day1.md/Screenshot from 2026-02-15 17-04-16.png>)
 ---
 
 ### 5. Running Synthesis
@@ -158,6 +158,11 @@ run_synthesis
 * Timing reports
 * Cell statistics report
 
+![running synthesis
+](image.png)
+
+![synthesis successful
+](image-1.png)
 ---
 
 ### 6. Opening Synthesized Netlist Using Vim
@@ -201,8 +206,8 @@ Observed:
 ```bash
 less runs/picorv32a/reports/synthesis/*stat.rpt
 ```
-
----
+![total numbers of cells](image-2.png)
+![total numbers of D-ff](image-3.png)
 
 ### 9. Inspecting Synthesis Logs
 

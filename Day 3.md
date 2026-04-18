@@ -157,6 +157,7 @@ runs/picorv32a/results/placement/
 
 Standard cells now have physical coordinates.
 
+![placement def file](image-8.png)
 ---
 
 ### 6. Opening Layout Using Magic (Visual Verification)
@@ -171,6 +172,7 @@ Result:
 - Core boundary displayed  
 - Power rails aligned  
 
+![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-46-59.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-35.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-52.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-10.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-28.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-38.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-55-34.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-37-08.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-40-47.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-48-44.png>)
 ---
 
 ### 7. Viewing Placement DEF File Using Vim
@@ -193,7 +195,7 @@ ESC
 ```bash
 less runs/picorv32a/reports/placement/*.rpt
 ```
-
+![placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-37.png>) ![placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-42.png>)
 Observed:
 
 - Estimated wirelength  
@@ -201,8 +203,11 @@ Observed:
 - Placement metrics  
 
 ---
+### 9. analysis through ngspice
 
-### 9. Inspecting Placement Logs
+![ngspice output](<images/day3.md/Screenshot from 2026-02-18 19-20-30.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 19-39-42.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 21-48-26.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-03-42.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-04-27.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-13-48.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-14-35.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-19-52.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-23-44.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-24-01.png>)
+---
+### 10. Inspecting Placement Logs
 
 ```bash
 less runs/picorv32a/logs/placement/*.log
@@ -210,12 +215,14 @@ less runs/picorv32a/logs/placement/*.log
 
 ---
 
-### 10. Opening Library LEF File
+### 11. Opening Library LEF File
 
 ```bash
 vim merged.lef
 ```
+## 12. opening the pre-designed cells and correcting the error 
 
+![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-24.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-36.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-41-52.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-46-27.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-57.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-05-38.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-08-43.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-57-15.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-58-34.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-04.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-56.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-14-17.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-26-01.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-30-11.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-31-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-43-30.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-52-23.png>)
 ---
 
 ## Day-3 Outputs Generated

@@ -122,8 +122,13 @@ Outputs Generated:
 - Routing reports
 - Routing logs
 
+![run synthesis](image-9.png)
 ---
 
+### 4. Viewing placement Reports
+
+![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-27-10.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-28-25.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-30-12.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-30-29.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-35-47.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-36-07.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-37-03.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-37-09.png>) ![placement stage run successful](<images/day5.md/Screenshot from 2026-02-22 19-38-17.png>) 
+---
 ### 4. Viewing Routing Reports
 
 ```bash
@@ -136,6 +141,7 @@ Observed:
 - Metal layer usage
 - Congestion information
 
+![routing completed](image-10.png)
 ---
 
 ### 5. Inspecting Routing Logs
@@ -143,7 +149,7 @@ Observed:
 ```bash
 less runs/picorv32a/logs/routing/*.log
 ```
-
+![Inspecting Routing Logs](<images/day5.md/Screenshot from 2026-02-22 20-46-55.png>) ![Inspecting Routing Logs](<images/day5.md/Screenshot from 2026-02-22 20-47-26.png>) ![Inspecting Routing Logs](<images/day5.md/Screenshot from 2026-02-22 20-50-26.png>)
 ---
 
 ### 6. Opening Routed Layout in Magic
@@ -156,6 +162,7 @@ Result:
 
 - Layout shows metal wires connecting placed cells.
 
+![magic output](<images/day5.md/Screenshot from 2026-02-22 20-54-21.png>) ![magic output](<images/day5.md/Screenshot from 2026-02-22 20-54-40.png>) ![magic output](<images/day5.md/Screenshot from 2026-02-22 20-55-06.png>) ![magic output](<images/day5.md/Screenshot from 2026-02-22 20-55-21.png>)
 ---
 
 ### 7. Checking Design Rule Violations
@@ -168,6 +175,7 @@ Purpose:
 
 - Review DRC or verification results before final export.
 
+![final results](<images/day5.md/Screenshot from 2026-02-22 20-57-23.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 20-58-54.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-27-51.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-39-52.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-36.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-51.png>) ![final results](<images/day5.md/Screenshot from 2026-02-22 22-40-56.png>)
 ---
 
 ### 8. Generating Final GDS Layout
