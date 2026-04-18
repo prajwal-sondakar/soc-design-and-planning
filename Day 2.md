@@ -83,6 +83,15 @@ This generated structure becomes the foundation for Day-3 placement.
 ### Running the Floorplanning Stage
 
 ```bash
+# open in interactive mode for customisation
+./flow.tcl -interactive
+#Input all the required packages for the Design for proper functionality 
+package require openlane 0.9
+# Now openlane is ready to run the design 
+prep -design picorv32a
+# Now the design is ready for tne Synthesis
+run_synthesis
+
 run_floorplan
 ```
 
@@ -92,7 +101,32 @@ This command reads the synthesized gate-level netlist along with the technology 
 ![floorplan successful](image-6.png)
 ![def file generated](image-7.png)
 ---
+```bash
+#Change directory to the path containing floorplan def
+/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/floorplan/
+#Command to open floorplan def file through magic
+magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+```
 
+
+![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-49-39.png>) 
+#### Equidistant placement of ports
+![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-51-21.png>)
+#### port layer set through config.tcl
+ ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-53-16.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-56-35.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-57-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-58-31.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-00-57.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-05-56.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-06-36.png>)
+ ```bash
+#congestion based placement
+run_placement
+ ```
+  ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-14-53.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-34.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-40.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-47.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-53.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-59.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-05.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-43.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-58.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-04.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-17.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-24.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-26.png>)
+ ```bash
+ #Change directory to the path containing placement def
+ cd /Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/plaement/
+#Command to open floorplan def file through magic
+magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+ ```
+  ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-28-16.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-29-25.png>)
+---
 ### Files and Data Generated During Day-2
 
 - Floorplan DEF File  
@@ -116,10 +150,6 @@ This command reads the synthesized gate-level netlist along with the technology 
 - Tap cells are automatically inserted to maintain substrate stability.
 - The generated DEF file represents the first physical view of the design.
 - Library cell dimensions define placement rows and alignment with power rails.
-
-![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-49-39.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-51-21.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-53-16.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-56-35.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-57-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 17-58-31.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-00-57.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-05-56.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-06-36.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-14-53.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-34.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-40.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-47.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-53.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-59.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-05.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-43.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-58.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-04.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-17.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-24.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-26.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-28-16.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-29-25.png>)
----
-
 ## Day-2 Flowchart — Synthesis Output to Floorplan
 
 ```

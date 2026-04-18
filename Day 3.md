@@ -83,86 +83,25 @@ This confirms readiness for the next stage.
 
 ## PART 3 — COMMANDS USED + OUTPUT RESULTS
 
-### 1. Cloning the Repository and Entering Project Directory
-
+### 1. Clone custom inverter standard cell design from github repository
 ```bash
-git clone <repository_link>
-cd <repository_folder>
+# enter into the openlane
+cd Desktop/work/tools0openlane_working_dir/openlane
+# clone custom inverter design repo
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+#copy magic tech file to the repo directory for easy access
+cp Desktop/work/tools0openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech
+#open custom inverter through magic
+magic -T sky130A.tech sky130_inv.mag &
 ```
 
-Purpose:
-
-- Obtain RTL files, configuration scripts, and OpenLANE setup.
-
+![cloning custom inverter](image-8.png)
 ---
 
-### 2. Navigating to OpenLANE Directory
+###  Opening Layout Using Magic (Visual Verification)
 
 ```bash
-cd OpenLane
-```
-
----
-
-### 3. Launching OpenLANE Interactive Mode
-
-```bash
-./flow.tcl -interactive
-```
-
-Result:
-
-```
-OpenLane>
-```
-
----
-
-### 4. Preparing the Design
-
-```bash
-prep -design picorv32a
-```
-
-Output:
-
-```
-runs/picorv32a/
- ├── logs/
- ├── reports/
- ├── results/
- └── tmp/
-```
-
----
-
-### 5. Executing Placement Stage
-
-```bash
-run_placement
-```
-
-Purpose:
-
-1. Perform global placement
-2. Perform detailed placement and legalization
-
-Outputs Generated:
-
-- Placement DEF file inside:
-
-```
-runs/picorv32a/results/placement/
-```
-
-Standard cells now have physical coordinates.
-
-![placement def file](image-8.png)
----
-
-### 6. Opening Layout Using Magic (Visual Verification)
-
-```bash
+#use anyone of the command to open the file
 magic -T $PDK_ROOT/sky130A/libs.tech/magic/sky130A.tech \
 lef read merged_unpadded.lef \
 def read picorv32a.placement.def
@@ -175,53 +114,74 @@ Result:
 - Power rails aligned  
 ### : Opening Coustom Inverter
 
-![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-46-59.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-35.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-52.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-10.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-28.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-38.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-55-34.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-37-08.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-40-47.png>) ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-48-44.png>)
+![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-46-59.png>)
+#### NMOS and PMOS identified
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-35.png>)
+ 
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-47-52.png>)
+#### Output Y is connected to NMOS and PMOS (verified)
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-10.png>)
+#### PMOS source connectivity to VDD 
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-28.png>)
+#### NMOS source is connected to VSS(GND)
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-48-38.png>)
+    
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-15 18-55-34.png>)
+```bash
+# check the current directory
+pwd
+# to extract .ext format
+extract all
+# before converting ext tp spice this command enable the parasitic extraction also
+ext2spice cthresh 0 rthresh 0
+# converting to ext to spice
+ext2spice
+```
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-37-08.png>)
+ #### Screenshot of the spice file created
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-40-47.png>)
+      
+ ![custom inverter](<images/day3.md/Screenshot from 2026-02-17 16-48-44.png>)
 ---
 
-### 7. Viewing Placement DEF File Using Vim
-
-```bash
-/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/placement$ gedit picorv32a.placement.def
-```
-
-Exit:
-
-```bash
-ESC
-:q!
-```
+## Now the final file is ready for ngspice simulation
+![edited file placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-37.png>) ![placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-42.png>)
 
 ---
-
-### 8. Checking Placement Reports
-
+### Post Layout ngspice simulation 
 ```bash
-gedit runs/picorv32a/reports/placement/6-replace.rpt
+# Commands to load spice file for simulation to ngspice
+ngspice sky130_inv.spice
+# plot the time vs voltage
+plot y vs time a
 ```
-![placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-37.png>) ![placement report](<images/day3.md/Screenshot from 2026-02-17 17-35-42.png>)
-Observed:
-
-- Estimated wirelength  
-- Density distribution  
-- Placement metrics  
-
----
-### 9. analysis through ngspice
 
 ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 19-20-30.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 19-39-42.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 21-48-26.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-03-42.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-04-27.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-13-48.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-14-35.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-19-52.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-23-44.png>) ![ngspice output](<images/day3.md/Screenshot from 2026-02-18 22-24-01.png>)
 ---
-### 10. Inspecting Placement Logs
-
-```bash
-cd runs/22-02_13-44/logs/placement$
-  gedit 6-replace.log
-```
 
 ---
 
-## 11. opening the pre-designed cells and correcting the error 
+## Find errors/problems in DRC section of the old magic tech file for the skywater process and fix them.
 
-![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-24.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-36.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-41-52.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-46-27.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-57.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-05-38.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-08-43.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-57-15.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-58-34.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-04.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-56.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-14-17.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-26-01.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-30-11.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-31-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-43-30.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-52-23.png>)
+![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-24.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-39-36.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-41-52.png>)
+#### Incorrectly implemented poly.9 simple rule correction
+ ![alt text](<images/day3.md/Screenshot from 2026-02-18 22-46-27.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-04-57.png>)
+ #### New commands inserted in sky130A.tech file to update drc
+  ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-05-38.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-08-43.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-19.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-10-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-57-15.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-18 23-58-34.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-04.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-03-56.png>)
+  #### commands to run in tkcon window
+  ```bash
+  # loading updated tech file
+  tech load sky130A.tech
+  # Change drc style to drc full
+  drc style drc(full)
+  # drc check to see updated drc errors
+  drc check
+  # The selected region will show the reson for the error
+  drc why
+  ```
+   ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-14-17.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-26-01.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-30-11.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-31-44.png>) ![alt text](<images/day3.md/Screenshot from 2026-02-19 17-43-30.png>)
+### Magic window with rule implemented
+![alt text](<images/day3.md/Screenshot from 2026-02-19 17-52-23.png>)
 ---
 
 ## Day-3 Outputs Generated
