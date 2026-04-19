@@ -259,8 +259,8 @@ Observed:
 ### 8. Checking Cell Statistics (Flop Ratio Observation)
 
 
-![total numbers of cells](image-2.png)
-![total numbers of D-ff](image-3.png)
+![total numbers of D-ff](images/day1.md/image-3.png)
+![total numbers of D-cells](images/day1.md/image-2.png)
 
 ### 9. Inspecting Synthesis Logs
 
@@ -438,9 +438,9 @@ run_floorplan
 
 This command reads the synthesized gate-level netlist along with the technology library information and calculates the physical dimensions of the design. It defines the core boundary, creates placement rows, and inserts initial power planning structures.
 
-![running floorplan](image-5.png)
-![floorplan successful](image-6.png)
-![def file generated](image-7.png)
+![running floorplan](images/day1.md/image-5.png)
+![floorplan successful](images/day1.md/image-6.png)
+![def file generated](images/day1.md/image-7.png)
 ---
 ```bash
 #Change directory to the path containing floorplan def
@@ -617,7 +617,7 @@ cp Desktop/work/tools0openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.
 magic -T sky130A.tech sky130_inv.mag &
 ```
 
-![cloning custom inverter](image-8.png)
+![cloning custom inverter](images/day1.md/image-8.png)
 ---
 
 ###  Opening Layout Using Magic (Visual Verification)
@@ -1398,7 +1398,7 @@ gen_pdn
 
 ```
 
-![run synthesis](image-9.png)
+![run synthesis](images/day1.md/image-9.png)
 ---
 
 ### screenshots of PDN
