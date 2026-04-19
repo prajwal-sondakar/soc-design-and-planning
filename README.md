@@ -215,11 +215,9 @@ run_synthesis
 * Timing reports
 * Cell statistics report
 
-![running synthesis
-](image.png)
+![runnong synthesis](images/day1.md/image.png)
 
-![synthesis successful
-](image-1.png)
+![synthesis successful](images/day1.md/image-1.png)
 ---
 
 ### 6. Opening Synthesized Netlist Using Vim
