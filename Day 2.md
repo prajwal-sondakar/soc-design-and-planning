@@ -103,7 +103,7 @@ This command reads the synthesized gate-level netlist along with the technology 
 ---
 ```bash
 #Change directory to the path containing floorplan def
-/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/floorplan/
+/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-02_11-33/results/floorplan/
 #Command to open floorplan def file through magic
 magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
 ```
@@ -121,7 +121,7 @@ run_placement
   ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-14-53.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-34.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-40.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-47.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-53.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-15-59.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-05.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-43.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-16-58.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-04.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-11.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-17.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-24.png>) ![veiw layout in magic](<images/day2.md/Screenshot from 2026-02-15 18-17-26.png>)
  ```bash
  #Change directory to the path containing placement def
- cd /Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/plaement/
+ cd /Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-02_11-33/results/plaement/
 #Command to open floorplan def file through magic
 magic -T /Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
  ```

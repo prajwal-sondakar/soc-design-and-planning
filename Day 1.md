@@ -161,11 +161,12 @@ run_synthesis
 ### 6. Opening Synthesized Netlist Using Vim
 
 ```bash
-/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/results/synthesis$ gvim picorv32a.synthesis.v
+~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-02_11-33/results/synthesis$ gvim picorv32a.synthesis.v
 
 ```
+![synthesis result](<images/day1.md/Screenshot from 2026-04-19 13-25-22.png>)
 
-
+![synthesis result](<images/day1.md/Screenshot from 2026-04-19 13-25-27.png>)
 
 Exit Vim:
 
@@ -179,8 +180,11 @@ ESC
 ### 7. Viewing Synthesis Reports
 
 ```bash
-/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/reports/synthesis$ gvim 1-yosys_3.chk.rpt
+~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-02_11-33/reports/synthesis$ gvim 1-yosys_4.chk.rpt
 ```
+![synthesis report](<images/day1.md/Screenshot from 2026-04-19 13-23-27.png>)
+
+![sunthsis report](<images/day1.md/Screenshot from 2026-04-19 13-23-32.png>)
 
 Observed:
 
@@ -199,9 +203,12 @@ Observed:
 ### 9. Inspecting Synthesis Logs
 
 ```bash
-/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/22-02_13-44/logs/synthesis$ less 1-yosys.log
-```
+/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/15-02_11-33/logs/synthesis$ gvim 1-yosys.log
 
+```
+![synthesis log](<images/day1.md/Screenshot from 2026-04-19 13-26-59.png>)
+
+![synthesis log](<images/day1.md/Screenshot from 2026-04-19 13-27-03.png>)
 ---
 
 
